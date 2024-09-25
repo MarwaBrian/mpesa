@@ -70,3 +70,6 @@ for index, row in data.head(20).iterrows():
     match = compiled_pattern.search(body_text)
     extracted = match.group(0) if match else None
     print(f"Index: {index}, Extracted Value: {extracted}")
+
+
+
