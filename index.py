@@ -61,9 +61,12 @@ data.columns = ['address', 'body', 'date']
 # Define the pattern
 transaction_type_pattern = r'(Confirmed|Business\sDeposit\sConfirmed)'
 
+# Compile the pattern once for efficiency
+compiled_pattern = re.compile(transaction_type_pattern, re.IGNORECASE)
+
 # Loop through the first 20 entries and print the extracted values
 for index, row in data.head(20).iterrows():
-    extracted = row['body'].str.extract(f'({transaction_type_pattern})')
+    body_text = row['body']
+    match = compiled_pattern.search(body_text)
+    extracted = match.group(0) if match else None
     print(f"Index: {index}, Extracted Value: {extracted}")
-
-# After confirming the extraction, you can proceed with assignment
